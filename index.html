@@ -13,7 +13,7 @@
             padding: 0;
             font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
             color: #fff;
-            background: linear-gradient(135deg, #1c1cba 0%, #2e3192 100%);
+            background: linear-gradient(135deg, #2b2b82 0%, #25286f 100%);
             min-height: 100vh;
             box-sizing: border-box;
             overflow-x: hidden;
@@ -41,14 +41,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 28px 48px 20px 48px;
-            background: rgba(28, 28, 186, 0.92);
+            padding: 14px 32px 10px 32px; /* Reduced header height */
+            background: rgba(28, 28, 160, 0.92);
             box-shadow: 0 4px 24px 0 rgba(44, 44, 120, 0.13);
             border-bottom-left-radius: 32px;
             border-bottom-right-radius: 32px;
             animation: fadeInDown 1s 0.3s both;
+            height: 70px; /* Fixed height for header */
         }
-
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-40px);}
             to { opacity: 1; transform: translateY(0);}
@@ -60,7 +60,7 @@
         }
 
         #logo {
-            font-size: 2.3rem;
+            font-size: 2.1rem; /* Slightly reduced for header height */
             font-weight: bold;
             color: rgba(245, 86, 0, 0.9);
             font-family: 'Pacifico', cursive;
@@ -87,7 +87,7 @@
             font-weight: 700;
             font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(90deg, #f55600 60%, #ffb347 100%);
-            padding: 12px 32px;
+            padding: 10px 24px; /* Reduced vertical padding */
             border-radius: 999px;
             box-shadow: 0 2px 12px 0 rgba(245, 86, 0, 0.13);
             font-size: 1.08rem;
@@ -127,7 +127,6 @@
             background: none;
             position: relative;
         }
-
         .main-content {
             max-width: 540px;
             margin-left: 100px;
@@ -137,6 +136,11 @@
             box-shadow: 0 8px 32px 0 rgba(44, 44, 120, 0.13);
             animation: fadeInUp 1.2s 0.5s both;
             backdrop-filter: blur(2px);
+            transition: transform 0.3s cubic-bezier(.4,1.3,.5,1), box-shadow 0.3s;
+        }
+        .main-content:hover {
+            transform: translateY(-16px) scale(1.025);
+            box-shadow: 0 16px 48px 0 rgba(245, 86, 0, 0.18);
         }
 
         .main-content h2 {
@@ -217,7 +221,7 @@
                 padding: 32px 18px;
             }
             header.landing-page-header {
-                padding: 18px 18px 12px 18px;
+                padding: 10px 10px 8px 10px; /* Reduced header height for tablet */
             }
         }
         @media (max-width: 600px) {
@@ -231,10 +235,10 @@
             header.landing-page-header {
                 flex-direction: column;
                 gap: 12px;
-                padding: 12px 4px 8px 4px;
+                padding: 8px 2px 4px 2px; /* Reduced header height for mobile */
             }
             #logo {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
             }
             .header-right nav {
                 gap: 8px;
