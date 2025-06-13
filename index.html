@@ -6,6 +6,8 @@
     <title>LionsExchange</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script type = "module" src ="firebaseauth.js"></script>
     
     <style>
         body {
@@ -245,6 +247,12 @@
             }
         }
     </style>
+
+
+
+<!------------------------ ----------------------------------END Of STYLE                  ---------------------------------------------------------->
+
+
     <!-- Decorative animated shapes -->
     <div class="decorative-shape shape1"></div>
     <div class="decorative-shape shape2"></div>
@@ -274,7 +282,291 @@
                 <h2>Welcome to LionsExchange</h2>  
                 <p>Your campus marketplace to advertise services, buy, and sell.</p>        
             </div>
-        </main>
+            <style>
+                /* Form Containers */
+                .container {
+                    background: rgba(44, 44, 120, 0.13);
+                    border-radius: 28px;
+                    box-shadow: 0 4px 24px 0 rgba(245, 86, 0, 0.10);
+                    padding: 36px 28px 28px 28px;
+                    margin: 32px auto 0 auto;
+                    max-width: 370px;
+                    width: 100%;
+                    position: relative;
+                    z-index: 2;
+                    animation: fadeInUp 1s 0.7s both;
+                    transition: box-shadow 0.2s, transform 0.2s;
+                }
+                .container:hover {
+                    box-shadow: 0 8px 32px 0 rgba(245, 86, 0, 0.18);
+                    transform: translateY(-6px) scale(1.015);
+                }
+                .signup-title {
+                    font-family: 'Pacifico', cursive;
+                    color: #ffb347;
+                    font-size: 2rem;
+                    margin-bottom: 18px;
+                    text-align: center;
+                    letter-spacing: 1px;
+                    text-shadow: 1px 2px 12px rgba(245, 86, 0, 0.13);
+                }
+                form {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 18px;
+                }
+                .input-group {
+                    display: flex;
+                    align-items: center;
+                    background: rgba(255,255,255,0.10);
+                    border-radius: 999px;
+                    padding: 8px 18px;
+                    margin-bottom: 6px;
+                    box-shadow: 0 2px 8px 0 rgba(44, 44, 120, 0.08);
+                    transition: box-shadow 0.2s;
+                }
+                .input-group:focus-within {
+                    box-shadow: 0 4px 16px 0 rgba(245, 86, 0, 0.13);
+                }
+                .input-group i {
+                    color: #ffb347;
+                    font-size: 1.1rem;
+                    margin-right: 10px;
+                    min-width: 22px;
+                }
+                .input-group input {
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    color: #fff;
+                    font-size: 1.08rem;
+                    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+                    flex: 1;
+                    padding: 8px 0;
+                    letter-spacing: 0.2px;
+                }
+                .input-group input::placeholder {
+                    color: #ffb347cc;
+                    opacity: 1;
+                    font-weight: 500;
+                }
+                .input-group label {
+                    display: none;
+                }
+                .signup-button, .login-button {
+                    background: linear-gradient(90deg, #f55600 60%, #ffb347 100%);
+                    color: #fff;
+                    border: none;
+                    border-radius: 999px;
+                    padding: 12px 0;
+                    font-size: 1.08rem;
+                    font-weight: 700;
+                    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+                    letter-spacing: 1px;
+                    margin-top: 8px;
+                    box-shadow: 0 2px 12px 0 rgba(245, 86, 0, 0.13);
+                    cursor: pointer;
+                    transition: background 0.3s, color 0.2s, transform 0.2s;
+                }
+                .signup-button:hover, .login-button:hover {
+                    background: linear-gradient(90deg, #ffb347 0%, #f55600 100%);
+                    color: #1c1cba;
+                    transform: translateY(-2px) scale(1.04);
+                    box-shadow: 0 6px 24px 0 rgba(245, 86, 0, 0.18);
+                }
+                .link {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    margin-top: 10px;
+                    font-size: 0.98rem;
+                    color: #fff;
+                }
+                .link p {
+                    margin: 0;
+                    color: #fff;
+                    font-weight: 400;
+                }
+                .link a {
+                    text-decoration: none;
+                }
+                #login-button, #signup-button {
+                    background: none;
+                    border: none;
+                    color: #ffb347;
+                    font-weight: 700;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    padding: 0 4px;
+                    border-radius: 8px;
+                    transition: color 0.2s, background 0.2s;
+                }
+                #login-button:hover, #signup-button:hover {
+                    color: #f55600;
+                    background: rgba(255,180,71,0.08);
+                }
+                .recover {
+                    text-align: right;
+                    margin: 0 0 8px 0;
+                    font-size: 0.97rem;
+                }
+                .recover a {
+                    color: #ffb347;
+                    text-decoration: underline;
+                    transition: color 0.2s;
+                }
+                .recover a:hover {
+                    color: #f55600;
+                }
+                /* Responsive for forms */
+                @media (max-width: 600px) {
+                    .container {
+                        padding: 18px 6px 16px 6px;
+                        max-width: 98vw;
+                    }
+                    .signup-title {
+                        font-size: 1.3rem;
+                    }
+                }
+            </style>
+
+            <div class="container" id="signup" style="display:none;">
+                <h2 class="signup-title">Sign Up</h2>
+                <form method="post" action="">
+                    <div id ="signUpMessage" class = "messageDiv" style="display:none;"></div>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="fName" id="fName" placeholder="Firstname" required>
+                        <label for="fName"></label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="lName" id="lName" placeholder="Lastname" required>
+                        <label for="lName"></label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="email" id="email" placeholder="Email" required>
+                        <label for="email"></label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" id="password" placeholder="Password" required>
+                        <label for="password"></label>
+                    </div>
+                    <button type="submit" class="signup-button" id="signup-submit">Sign Up</button>
+
+                    <div class="link">
+                        <p>Already have an account? </p>
+                        <a href="#login"><button id="login-switch" type="button">Login</button></a>
+                    </div>
+                    </form>
+                    </div>
+
+                    <div class="container" id="login" style="display:none;">
+                        <h2 class="signup-title">Login</h2>
+                        <form method="post" action="">
+                            <div id="loginMessage" class="messageDiv" style="display:none;"></div>
+                            <style>
+                                .messageDiv {
+                                    background: linear-gradient(90deg, #f55600 60%, #ffb347 100%);
+                                    color: #fff;
+                                    border-radius: 16px;
+                                    padding: 12px 18px;
+                                    margin-bottom: 16px;
+                                    font-size: 1.05rem;
+                                    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+                                    box-shadow: 0 2px 12px 0 rgba(245, 86, 0, 0.13);
+                                    text-align: center;
+                                    letter-spacing: 0.2px;
+                                    animation: fadeInUp 0.5s;
+                                    transition: background 0.2s, color 0.2s;
+                                }
+                            </style>
+                            <div class="input-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" name="email" id="email-login" placeholder="Email" required>
+                                <label for="email-login"></label>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="password" id="password-login" placeholder="Password" required>
+                                <label for="password-login"></label>
+                            </div>
+                            <p class="recover">
+                                <a href="#">Recover Password</a>
+                            </p>
+                            <button type="submit" id="login-submit" class="login-button">Login</button>
+                            <div class="link">
+                                <p>Don't have an account, yet? </p>
+                                <a href="#signup"><button id="signup-switch" type="button">Sign Up</button></a>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </form>
+            </div>
+
+
+
+
+
+
+
+
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const signupForm = document.getElementById('signup');
+                const loginForm = document.getElementById('login');
+
+                // Show form based on hash in URL
+                function showFormFromHash() {
+                    if (window.location.hash === '#signup') {
+                        signupForm.style.display = 'block';
+                        loginForm.style.display = 'none';
+                    } else if (window.location.hash === '#login') {
+                        signupForm.style.display = 'none';
+                        loginForm.style.display = 'block';
+                    } else {
+                        signupForm.style.display = 'none';
+                        loginForm.style.display = 'none';
+                    }
+                }
+
+                // Listen for hash changes
+                window.addEventListener('hashchange', showFormFromHash);
+
+                // Listen for button clicks
+                document.getElementById('login-button').onclick = function(e) {
+                    e.preventDefault();
+                    window.location.hash = '#login';
+                };
+                document.getElementById('signup-button').onclick = function(e) {
+                    e.preventDefault();
+                    window.location.hash = '#signup';
+                };
+
+                // Initial check
+                showFormFromHash();
+            });
+            </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       </div>
 
