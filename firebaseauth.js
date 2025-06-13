@@ -15,6 +15,7 @@
     appId: "1:1098511064527:web:d205383aaf7fcfc8be06ba"
   };
 
+
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
@@ -51,7 +52,7 @@
             email: email
         };
 
-        showMessage("Account created successfully!", "signUpMessage");
+        showMessage("Account created successfully! Please Log in!", "signUpMessage");
         const docRef = doc(db, "users", user.uid);
         setDoc(docRef, userData)
         .then(() => {
@@ -78,3 +79,30 @@
         }
     });
   })
+
+    const signIn = document.getElementById("login-submit");
+    signIn.addEventListener("click", event => {
+        event.preventDefault();
+        const email = document.getElementById("email-login").value;
+        const password = document.getElementById("password-login").value;
+
+        const auth = getAuth();
+
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            showMessage("Login successful!", "loginMessage");
+            const user = userCredential.user;
+            localStorage.setItem("loggedInUserId", user.uid);
+            window.location.href = "dashboard.html";
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            if (errorCode === 'auth/invalid-credential') {
+                showMessage("Incorrect Email or Password", "loginMessage");
+            }
+            else {
+                showMessage("Account does not exist", "loginMessage");
+            }
+        });
+    });
+    
