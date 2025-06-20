@@ -75,106 +75,12 @@
             </ul>
         </aside>
 
-        <main class="main"> <!-- Main Section -->
-            <div class="main-title">
-                <h2>My Ads</h2>
+        <main class = "main"> <!---- Main Section -------->
+            <div class = "main-title">
+                <h2>My Ads</h2>          
             </div>
 
-            <!-- Image Upload Section -->
-            <div id="imageUploader">
-                <input type="file" id="fileInput" accept="image/*" multiple>
-                <button id="uploadButton">Upload</button>
-            </div>
-
-            <!-- Image Grid Display -->
-            <div id="imageGrid" class="image-grid"></div>
-        </main>
-
-        <style>
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 16px;
-            margin-top: 24px;
-        }
-        .image-grid img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        </style>
-
-        <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-storage.js";
-
-        // Your Firebase config
-        const firebaseConfig = {
-            apiKey: "AIzaSyCMQQdUBSMHcrqRUBXJNyDkoKDNOO-wxKY",
-            authDomain: "lionsexchange-88d6e.firebaseapp.com",
-            projectId: "lionsexchange-88d6e",
-            storageBucket: "lionsexchange-88d6e.appspot.com",
-            messagingSenderId: "1098511064527",
-            appId: "1:1098511064527:web:d205383aaf7fcfc8be06ba"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const storage = getStorage(app);
-
-        const fileInput = document.getElementById("fileInput");
-        const uploadButton = document.getElementById("uploadButton");
-        const imageGrid = document.getElementById("imageGrid");
-
-        // Helper: Save image URLs to localStorage
-        function saveImageURLs(urls) {
-            localStorage.setItem("uploadedImages", JSON.stringify(urls));
-        }
-
-        // Helper: Load image URLs from localStorage
-        function loadImageURLs() {
-            const data = localStorage.getItem("uploadedImages");
-            return data ? JSON.parse(data) : [];
-        }
-
-        // Display images in grid
-        function displayImages(urls) {
-            imageGrid.innerHTML = "";
-            urls.forEach(url => {
-                const img = document.createElement("img");
-                img.src = url;
-                imageGrid.appendChild(img);
-            });
-        }
-
-        // Upload images and update grid
-        uploadButton.addEventListener("click", async () => {
-            const files = fileInput.files;
-            if (!files.length) return;
-
-            let urls = loadImageURLs();
-
-            for (const file of files) {
-                const storageRef = ref(storage, `uploaded_images/${file.name}_${Date.now()}`);
-                await uploadBytes(storageRef, file);
-                const url = await getDownloadURL(storageRef);
-                urls.push(url);
-            }
-
-            saveImageURLs(urls);
-            displayImages(urls);
-            fileInput.value = "";
-        });
-
-        // On page load, display images from localStorage
-        window.addEventListener("DOMContentLoaded", () => {
-            const urls = loadImageURLs();
-            displayImages(urls);
-        });
-        </script>
-
-            <!-- <div id = "imageUploader">
+            <div id = "imageUploader">
                 <input type = "file" id = "fileInput" accept = "image/*">
                 <button id = "uploadButton">Upload</button>
             </div>
@@ -186,9 +92,6 @@
         
     </div>
 
-
-
- 
 
     <script src="script.js">
 
@@ -227,6 +130,6 @@
         const uploadButton = document.getElementById("uploadButton");
         uploadButton.addEventListener("click", uploadImage);
     </script>
-     -->
+    
 </body>
 </html>
