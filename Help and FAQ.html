@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LionsExchange</title>
+
+    <!------------ Custom CSS --------------->
+    <link rel = "stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    
+
+
+</head>
+<body>
+
+    <div class="container">
+
+        <header class="header"> <!-- Header Section -->
+            <div class = "menu" onclick = "openSidebar()">
+                <img src="Lions_Exchange_images/menu.png" alt="Menu Icon" class="menu-icon">
+            </div>
+
+            <div class="header-left">
+                <p id="logo">LionsExchange</p>
+            </div>
+
+            <!-- Middle: Search -->
+            <!-- <div class="header-center">
+                <div class="search-wrapper">
+                    <img src="Lions_Exchange_images/search.png" alt="Search Icon" class="search-icon-inside">
+                    <input type="text" class="search-bar" placeholder="Search...">
+                </div>
+            </div> -->
+
+            <!-- Right: Profile -->
+            <div class="header-right">
+                <img src="Lions_Exchange_images/profile.png" alt="Profile Icon" class="profile-icon">
+            </div>
+        </header>
+
+        <aside id ="sidebar"> <!---- Side bar ------>
+            <div class = "sidebar-title">
+                <img src="Lions_Exchange_images/close.png" alt="Close Icon" class="close-icon" onclick="closeSidebar()">
+            </div>
+            <ul class="sidebar-list">
+                <li class="sidebar-item">
+                    <a href="dashboard.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/dashboard.png"> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="my ads.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/ads.png"> My Ads
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="Help and FAQ.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/help.png"> Help & FAQ
+                    </a>
+                </li>
+                <li class="sidebar-item"> 
+                    <a href="index.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/logout.png"> Logout
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class = "main"> <!---- Main Section -------->
+            <div class = "main-title">
+                <h2>Help & FAQ</h2>          
+            </div>
+        </main>
+
+        
+        
+    </div>
+
+
+
+ 
+
+    <script src="script.js">
+
+    </script>
+    
+</body>
+</html>
