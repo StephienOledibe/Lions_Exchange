@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LionsExchange - Marketplace</title>
+
+    <!------------ Custom CSS --------------->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="marketplace_style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <div class="menu" onclick="openSidebar()">
+                <img src="Lions_Exchange_images/menu.png" alt="Menu Icon" class="menu-icon">
+            </div>
+
+            <div class="header-left">
+                <p id="logo">LionsExchange</p>
+            </div>
+
+            <div class="header-center">
+                <div class="search-wrapper">
+                    <img src="Lions_Exchange_images/search.png" alt="Search Icon" class="search-icon-inside">
+                    <input type="text" class="search-bar" id="headerSearch" placeholder="Search marketplace...">
+                </div>
+            </div>
+
+            <!-- <div class="header-right">
+                <img src="Lions_Exchange_images/profile.png" alt="Profile Icon" class="profile-icon">
+            </div> -->
+        </header>
+
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <img src="Lions_Exchange_images/close.png" alt="Close Icon" class="close-icon" onclick="closeSidebar()">
+            </div>
+            <ul class="sidebar-list">
+                <li class="sidebar-item">
+                    <a href="dashboard.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/dashboard.png"> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="my ads.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/ads.png"> My Ads
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="marketplace.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/white_search.png"> Marketplace
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="Help and FAQ.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/help.png"> Help & FAQ
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" onclick="logout()">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/logout.png"> Logout
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main">
+            <div class="marketplace-container">
+                <div class="main-title">
+                    <h2>Campus Marketplace</h2>
+                </div>
+
+                <!-- Search and Filter Section -->
+                <div class="search-filter-section">
+                    <div class="search-row">
+                        <div class="search-input-wrapper">
+                            <input type="text" class="search-input" id="mainSearch" placeholder="Search for items, services, or keywords...">
+                            <button class="search-btn" onclick="performSearch()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label class="filter-label">Category</label>
+                            <select class="filter-select" id="categoryFilter">
+                                <option value="">All Categories</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Books">Books</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Services">Services</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label class="filter-label">Condition</label>
+                            <select class="filter-select" id="conditionFilter">
+                                <option value="">Any Condition</option>
+                                <option value="New">New</option>
+                                <option value="Like New">Like New</option>
+                                <option value="Good">Good</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Poor">Poor</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label class="filter-label">Min Price ($)</label>
+                            <input type="number" class="filter-input" id="minPrice" placeholder="0" min="0" step="0.01">
+                        </div>
+
+                        <div class="filter-group">
+                            <label class="filter-label">Max Price ($)</label>
+                            <input type="number" class="filter-input" id="maxPrice" placeholder="1000" min="0" step="0.01">
+                        </div>
+
+                        <button class="clear-filters-btn" onclick="clearFilters()">
+                            <i class="fas fa-times"></i> Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Header -->
+                <div class="results-header">
+                    <div class="results-count" id="resultsCount">
+                        Loading...
+                    </div>
+                    <div class="sort-controls">
+                        <label class="sort-label">Sort by:</label>
+                        <select class="sort-select" id="sortSelect">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="title">Title: A to Z</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Marketplace Grid -->
+                <div class="marketplace-grid" id="marketplaceGrid">
+                    <div class="loading">
+                        <div><i class="fas fa-spinner fa-spin"></i></div>
+                        <div>Loading marketplace...</div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="pagination" style="display: none;">
+                    <!-- Pagination buttons will be inserted here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, query, where, orderBy, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCMQQdUBSMHcrqRUBXJNyDkoKDNOO-wxKY",
+            authDomain: "lionsexchange-88d6e.firebaseapp.com",
+            projectId: "lionsexchange-88d6e",
+            storageBucket: "lionsexchange-88d6e.firebasestorage.app",
+            messagingSenderId: "1098511064527",
+            appId: "1:1098511064527:web:d205383aaf7fcfc8be06ba"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+        let allAds = [];
+        let filteredAds = [];
+        let currentPage = 1;
+        const adsPerPage = 12;
+        let favoriteAds = new Set();
+
+        // Check authentication
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                loadFavorites();
+                loadMarketplace();
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Logout function
+        window.logout = async function() {
+            if (confirm("Are you sure you want to logout?")) {
+                try {
+                    await signOut(auth);
+                    sessionStorage.clear();
+                    localStorage.clear();
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    console.error('Error signing out:', error);
+                    alert('Error logging out. Please try again.');
+                }
+            }
+        };
+
+        // Load marketplace data
+        async function loadMarketplace() {
+            const grid = document.getElementById('marketplaceGrid');
+            grid.innerHTML = `
+                <div class="loading">
+                    <div><i class="fas fa-spinner fa-spin"></i></div>
+                    <div>Loading marketplace...</div>
+                </div>
+            `;
+
+            try {
+                const adsCollection = collection(db, 'ads');
+                const querySnapshot = await getDocs(adsCollection);
+                
+                allAds = [];
+                
+                for (const docSnap of querySnapshot.docs) {
+                    const ad = docSnap.data();
+                    
+                    // Show all active ads (including user's own ads)
+                    if (ad.status === 'active') {
+                        // Get seller info
+                        let sellerInfo = { firstName: 'Anonymous', lastName: 'User' };
+                        
+                        if (ad.userId && ad.userId !== 'undefined') {
+                            try {
+                                const userDoc = await getDoc(doc(db, 'users', ad.userId));
+                                if (userDoc.exists()) {
+                                    sellerInfo = userDoc.data();
+                                }
+                            } catch (userError) {
+                                console.warn('Could not fetch seller info for ad:', docSnap.id, userError);
+                            }
+                        }
+                        
+                        // Mark if it's user's own ad
+                        const isOwnAd = ad.userId === currentUser.uid;
+                        
+                        allAds.push({
+                            id: docSnap.id,
+                            ...ad,
+                            isOwnAd: isOwnAd,
+                            sellerName: isOwnAd ? 'You' : `${sellerInfo.firstName} ${sellerInfo.lastName}`,
+                            sellerInitials: isOwnAd ? 'ME' : `${sellerInfo.firstName?.charAt(0) || 'A'}${sellerInfo.lastName?.charAt(0) || 'U'}`
+                        });
+                    }
+                }
+
+                filteredAds = [...allAds];
+                applySorting();
+                displayAds();
+                updateResultsCount();
+
+            } catch (error) {
+                console.error('Error loading marketplace:', error);
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="empty-title">Error Loading Marketplace</div>
+                        <div class="empty-description">Please refresh the page and try again.</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Display ads with pagination
+        function displayAds() {
+            const grid = document.getElementById('marketplaceGrid');
+            const startIndex = (currentPage - 1) * adsPerPage;
+            const endIndex = startIndex + adsPerPage;
+            const adsToShow = filteredAds.slice(startIndex, endIndex);
+
+            if (adsToShow.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="empty-title">No items found</div>
+                        <div class="empty-description">Try adjusting your search terms or filters to find what you're looking for.</div>
+                    </div>
+                `;
+                document.getElementById('pagination').style.display = 'none';
+                return;
+            }
+
+            grid.innerHTML = '';
+            adsToShow.forEach(ad => {
+                const adCard = createAdCard(ad);
+                grid.appendChild(adCard);
+            });
+
+            updatePagination();
+        }
+
+        // Create ad card
+        function createAdCard(ad) {
+            const card = document.createElement('div');
+            card.className = `product-card ${ad.isOwnAd ? 'own-ad' : ''}`;
+            card.onclick = () => viewAdDetails(ad);
+
+            // Handle images with fallback
+            let mainImage;
+            if (ad.images && ad.images.length > 0 && ad.images[0] !== '') {
+                mainImage = ad.images[0];
+            } else {
+                mainImage = `https://picsum.photos/300/220?random=${ad.id}`;
+            }
+
+            const categoryClass = `category-${ad.category.toLowerCase().replace(/\s+/g, '-')}`;
+            const isFavorited = favoriteAds.has(ad.id);
+
+            card.innerHTML = `
+                <div class="product-image-container">
+                    <img src="${mainImage}" alt="${ad.title}" class="product-image" onerror="this.src='https://picsum.photos/300/220?random=${Math.random()}'">
+                    <div class="product-status ${ad.isOwnAd ? 'own-ad' : ''}">${ad.isOwnAd ? 'Your Ad' : 'Available'}</div>
+                    <div class="product-condition">${ad.condition || 'Good'}</div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category ${categoryClass}">${ad.category}</div>
+                    <h3 class="product-title">${ad.title}</h3>
+                    <p class="product-description">${ad.description}</p>
+                    <div class="product-price">$${ad.price.toFixed(2)}</div>
+                    <div class="product-seller">
+                        <div class="seller-avatar ${ad.isOwnAd ? 'own-ad' : ''}">${ad.sellerInitials}</div>
+                        <span>by ${ad.sellerName}</span>
+                    </div>
+                    <div class="product-actions">
+                        ${ad.isOwnAd ? 
+                            `<button class="contact-btn edit-btn" onclick="editOwnAd(event, '${ad.id}')">
+                                <i class="fas fa-edit"></i> Edit Ad
+                            </button>` :
+                            `<button class="contact-btn" onclick="contactSeller(event, '${ad.userEmail}', '${ad.title}')">
+                                <i class="fas fa-envelope"></i> Contact Seller
+                            </button>`
+                        }
+                        <button class="favorite-btn ${isFavorited ? 'favorited' : ''}" onclick="toggleFavorite(event, '${ad.id}')">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Search functionality
+        window.performSearch = function() {
+            const searchTerm = document.getElementById('mainSearch').value.toLowerCase().trim();
+            applyFilters();
+        };
+
+        // Apply filters
+        function applyFilters() {
+            const searchTerm = document.getElementById('mainSearch').value.toLowerCase().trim();
+            const category = document.getElementById('categoryFilter').value;
+            const condition = document.getElementById('conditionFilter').value;
+            const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+            const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+
+            filteredAds = allAds.filter(ad => {
+                const matchesSearch = !searchTerm || 
+                    ad.title.toLowerCase().includes(searchTerm) ||
+                    ad.description.toLowerCase().includes(searchTerm) ||
+                    ad.category.toLowerCase().includes(searchTerm);
+                
+                const matchesCategory = !category || ad.category === category;
+                const matchesCondition = !condition || ad.condition === condition;
+                const matchesPrice = ad.price >= minPrice && ad.price <= maxPrice;
+
+                return matchesSearch && matchesCategory && matchesCondition && matchesPrice;
+            });
+
+            currentPage = 1;
+            applySorting();
+            displayAds();
+            updateResultsCount();
+        }
+
+        // Apply sorting
+        function applySorting() {
+            const sortBy = document.getElementById('sortSelect').value;
+
+            filteredAds.sort((a, b) => {
+                switch (sortBy) {
+                    case 'newest':
+                        return new Date(b.createdAt?.toDate() || 0) - new Date(a.createdAt?.toDate() || 0);
+                    case 'oldest':
+                        return new Date(a.createdAt?.toDate() || 0) - new Date(b.createdAt?.toDate() || 0);
+                    case 'price-low':
+                        return a.price - b.price;
+                    case 'price-high':
+                        return b.price - a.price;
+                    case 'title':
+                        return a.title.localeCompare(b.title);
+                    default:
+                        return 0;
+                }
+            });
+        }
+
+        // Clear filters
+        window.clearFilters = function() {
+            document.getElementById('mainSearch').value = '';
+            document.getElementById('categoryFilter').value = '';
+            document.getElementById('conditionFilter').value = '';
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            document.getElementById('sortSelect').value = 'newest';
+            
+            filteredAds = [...allAds];
+            currentPage = 1;
+            applySorting();
+            displayAds();
+            updateResultsCount();
+        };
+
+        // Update results count
+        function updateResultsCount() {
+            const count = filteredAds.length;
+            const total = allAds.length;
+            document.getElementById('resultsCount').textContent = 
+                `Showing ${count} of ${total} items`;
+        }
+
+        // Pagination
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredAds.length / adsPerPage);
+            const pagination = document.getElementById('pagination');
+
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+
+            pagination.style.display = 'flex';
+            pagination.innerHTML = '';
+
+            // Previous button
+            const prevBtn = document.createElement('button');
+            prevBtn.className = `pagination-btn ${currentPage === 1 ? 'disabled' : ''}`;
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i> Previous';
+            prevBtn.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayAds();
+                }
+            };
+            pagination.appendChild(prevBtn);
+
+            // Page numbers
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, currentPage + 2);
+
+            if (startPage > 1) {
+                const firstBtn = document.createElement('button');
+                firstBtn.className = 'pagination-btn';
+                firstBtn.textContent = '1';
+                firstBtn.onclick = () => {
+                    currentPage = 1;
+                    displayAds();
+                };
+                pagination.appendChild(firstBtn);
+
+                if (startPage > 2) {
+                    const dots = document.createElement('span');
+                    dots.textContent = '...';
+                    dots.style.padding = '8px 12px';
+                    pagination.appendChild(dots);
+                }
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `pagination-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.onclick = () => {
+                    currentPage = i;
+                    displayAds();
+                };
+                pagination.appendChild(pageBtn);
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const dots = document.createElement('span');
+                    dots.textContent = '...';
+                    dots.style.padding = '8px 12px';
+                    pagination.appendChild(dots);
+                }
+
+                const lastBtn = document.createElement('button');
+                lastBtn.className = 'pagination-btn';
+                lastBtn.textContent = totalPages;
+                lastBtn.onclick = () => {
+                    currentPage = totalPages;
+                    displayAds();
+                };
+                pagination.appendChild(lastBtn);
+            }
+
+            // Next button
+            const nextBtn = document.createElement('button');
+            nextBtn.className = `pagination-btn ${currentPage === totalPages ? 'disabled' : ''}`;
+            nextBtn.innerHTML = 'Next <i class="fas fa-chevron-right"></i>';
+            nextBtn.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayAds();
+                }
+            };
+            pagination.appendChild(nextBtn);
+        }
+
+        // Edit own ad function
+        window.editOwnAd = function(event, adId) {
+            event.stopPropagation();
+            // Redirect to My Ads page with edit parameter
+            window.location.href = `my ads.html?edit=${adId}`;
+        };
+
+        // Contact seller
+        window.contactSeller = function(event, sellerEmail, itemTitle) {
+            event.stopPropagation();
+            const subject = encodeURIComponent(`Interest in: ${itemTitle}`);
+            const body = encodeURIComponent(`Hi! I'm interested in your item "${itemTitle}" listed on LionsExchange. Could you please provide more details?\n\nThanks!`);
+            window.open(`mailto:${sellerEmail}?subject=${subject}&body=${body}`);
+        };
+
+        // Toggle favorite
+        window.toggleFavorite = function(event, adId) {
+            event.stopPropagation();
+            const btn = event.currentTarget;
+            
+            if (favoriteAds.has(adId)) {
+                favoriteAds.delete(adId);
+                btn.classList.remove('favorited');
+            } else {
+                favoriteAds.add(adId);
+                btn.classList.add('favorited');
+            }
+            
+            saveFavorites();
+        };
+
+        // Load favorites from localStorage
+        function loadFavorites() {
+            const saved = localStorage.getItem(`favorites_${currentUser.uid}`);
+            if (saved) {
+                favoriteAds = new Set(JSON.parse(saved));
+            }
+        }
+
+        // Save favorites to localStorage
+        function saveFavorites() {
+            localStorage.setItem(`favorites_${currentUser.uid}`, JSON.stringify([...favoriteAds]));
+        }
+
+        // View ad details
+        window.viewAdDetails = function(ad) {
+            const imagesList = ad.images && ad.images.length > 0 ? 
+                ad.images.map(img => `<img src="${img}" style="width: 100px; height: 100px; object-fit: cover; margin: 5px;" alt="Product image">`).join('') :
+                '<p>No images available</p>';
+            
+            const detailsHtml = `
+                <div style="max-width: 500px; font-family: Inter, sans-serif;">
+                    <h2 style="color: #1d269a; margin-bottom: 15px;">${ad.title}</h2>
+                    <div style="margin-bottom: 15px;">
+                        <strong>Price:</strong> ${ad.price.toFixed(2)}<br>
+                        <strong>Category:</strong> ${ad.category}<br>
+                        <strong>Condition:</strong> ${ad.condition}<br>
+                        <strong>Seller:</strong> ${ad.sellerName}
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong>Description:</strong><br>
+                        ${ad.description}
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong>Images:</strong><br>
+                        ${imagesList}
+                    </div>
+                    ${!ad.isOwnAd ? `<p style="color: #666; font-size: 0.9rem;">Click "Contact Seller" to get in touch!</p>` : 
+                      `<p style="color: #f55600; font-size: 0.9rem;">This is your ad. Click "Edit Ad" to make changes.</p>`}
+                </div>
+            `;
+            
+            // Create a simple modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                padding: 30px;
+                border-radius: 16px;
+                max-width: 90vw;
+                max-height: 90vh;
+                overflow-y: auto;
+                position: relative;
+            `;
+            
+            const closeBtn = document.createElement('button');
+            closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+            closeBtn.style.cssText = `
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: #f55600;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+            closeBtn.onclick = () => modal.remove();
+            
+            modalContent.innerHTML = detailsHtml;
+            modalContent.appendChild(closeBtn);
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Close on backdrop click
+            modal.onclick = (e) => {
+                if (e.target === modal) modal.remove();
+            };
+        };
+
+        // Header search functionality
+        document.getElementById('headerSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('mainSearch').value = this.value;
+                applyFilters();
+            }
+        });
+
+        // Real-time search as user types (with debounce)
+        let searchTimeout;
+        document.getElementById('mainSearch').addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                applyFilters();
+            }, 500);
+        });
+
+        // Filter change listeners
+        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+        document.getElementById('conditionFilter').addEventListener('change', applyFilters);
+        document.getElementById('minPrice').addEventListener('input', debounce(applyFilters, 500));
+        document.getElementById('maxPrice').addEventListener('input', debounce(applyFilters, 500));
+        document.getElementById('sortSelect').addEventListener('change', () => {
+            applySorting();
+            displayAds();
+        });
+
+        // Debounce function
+        function debounce(func, delay) {
+            let timeoutId;
+            return function (...args) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
+
+        // Auto-fill search from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchParam = urlParams.get('search');
+        if (searchParam) {
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('mainSearch').value = searchParam;
+                document.getElementById('headerSearch').value = searchParam;
+                // Wait a bit for the marketplace to load before applying filters
+                setTimeout(applyFilters, 1000);
+            });
+        }
+    </script>
+
+    <!-- Enhanced Search Script -->
+    <script>
+        // Enhanced Search Functionality for Header
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerSearchBar = document.querySelector('#headerSearch');
+            
+            if (headerSearchBar) {
+                headerSearchBar.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const searchTerm = this.value.trim();
+                        if (searchTerm) {
+                            document.getElementById('mainSearch').value = searchTerm;
+                            if (typeof applyFilters === 'function') {
+                                applyFilters();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

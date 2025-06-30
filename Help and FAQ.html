@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LionsExchange</title>
+
+    <!------------ Custom CSS --------------->
+    <link rel = "stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    
+    <style>
+    .header {
+      justify-content: flex-start;
+    }
+    .header-left {
+      margin-left: 0px;
+    }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <header class="header"> <!-- Header Section -->
+            <div class = "menu" onclick = "openSidebar()">
+                <img src="Lions_Exchange_images/menu.png" alt="Menu Icon" class="menu-icon">
+            </div>
+
+            <div class="header-left">
+                <p id="logo">LionsExchange</p>
+            </div>
+
+            <!-- Middle: Search -->
+            <!-- <div class="header-center">
+                <div class="search-wrapper">
+                    <img src="Lions_Exchange_images/search.png" alt="Search Icon" class="search-icon-inside">
+                    <input type="text" class="search-bar" placeholder="Search...">
+                </div>
+            </div> -->
+
+            <!-- Right: Profile -->
+            <!-- <div class="header-right">
+                <img src="Lions_Exchange_images/profile.png" alt="Profile Icon" class="profile-icon">
+            </div> -->
+        </header>
+
+        <aside id ="sidebar"> <!---- Side bar ------>
+            <div class = "sidebar-title">
+                <img src="Lions_Exchange_images/close.png" alt="Close Icon" class="close-icon" onclick="closeSidebar()">
+            </div>
+            <ul class="sidebar-list">
+                <li class="sidebar-item">
+                    <a href="dashboard.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/dashboard.png"> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="my ads.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/ads.png"> My Ads
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="marketplace.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/white_search.png"> Marketplace
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="Help and FAQ.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/help.png"> Help & FAQ
+                    </a>
+                </li>
+                <li class="sidebar-item"> 
+                    <a href="index.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/logout.png"> Logout
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+            <main class="main"> <!---- Main Section -------->
+                <div class="main-title">
+                    <h2>Help & FAQ</h2>          
+                </div>
+                <section class="help-content">
+                    <h3>Getting Started</h3>
+                    <ol>
+                        <li><strong>Sign Up / Log In:</strong> Access your account or create a new one to start using LionsExchange.</li>
+                        <li><strong>Dashboard:</strong> View your activity, recent ads, and notifications.</li>
+                        <li><strong>Marketplace:</strong> Browse or search for items posted by other users.</li>
+                        <li><strong>My Ads:</strong> Manage, edit, or delete your posted ads.</li>
+                        <li><strong>Post an Ad:</strong> Click the "Post Ad" button (available in the dashboard or marketplace) and fill in the required details.</li>
+                    </ol>
+
+                    <h3>Frequently Asked Questions</h3>
+                    <ul>
+                        <li>
+                            <strong>How do I contact a seller?</strong><br>
+                            Open the ad and use the provided contact options to reach out to the seller directly.
+                        </li>
+                        <li>
+                            <strong>How can I edit or remove my ad?</strong><br>
+                            Go to "My Ads", find your listing, and use the edit or delete options.
+                        </li>
+                        <li>
+                            <strong>Is there a search feature?</strong><br>
+                            Yes, use the search bar at the top of the marketplace page to find specific items.
+                        </li>
+                        <li>
+                            <strong>How do I log out?</strong><br>
+                            Click the "Logout" option in the sidebar menu.
+                        </li>
+                    </ul>
+
+                    <h3>Need More Help?</h3>
+                    <p>If you have additional questions or need support, please <a href="mailto:stephien.oledibe@lions.lincoln.edu">Email Us</a>.</p>
+                </section>
+            </main>
+            <style>
+                .main {
+                    background: #fff;
+                    border-radius: 12px;
+                    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+                    padding: 32px 24px;
+                    margin: 32px auto;
+                    max-width: 700px;
+                    font-family: 'Inter', Arial, sans-serif;
+                }
+                .main-title h2 {
+                    font-family: 'Pacifico', cursive;
+                    color: #f55600;
+                    font-size: 2.2rem;
+                    margin-bottom: 18px;
+                    text-align: center;
+                }
+                .help-content h3 {
+                    color: #1a237e;
+                    margin-top: 28px;
+                    margin-bottom: 10px;
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                }
+                .help-content ol, .help-content ul {
+                    margin-left: 22px;
+                    margin-bottom: 18px;
+                }
+                .help-content li {
+                    margin-bottom: 10px;
+                    line-height: 1.6;
+                }
+                .help-content strong {
+                    color: #f55600;
+                }
+                .help-content a {
+                    color: #1a237e;
+                    text-decoration: underline;
+                }
+                .help-content p {
+                    margin-top: 12px;
+                    font-size: 1rem;
+                }
+                @media (max-width: 600px) {
+                    .main {
+                        padding: 16px 6px;
+                        margin: 16px 2px;
+                    }
+                    .main-title h2 {
+                        font-size: 1.4rem;
+                    }
+                }
+            </style>
+
+        
+        
+    </div>
+
+
+
+ 
+
+    <script src="script.js">
+
+    </script>
+    
+</body>
+</html>

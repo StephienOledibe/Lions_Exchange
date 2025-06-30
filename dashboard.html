@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LionsExchange - Dashboard</title>
+
+    <!------------ Custom CSS --------------->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard_style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <div class="menu" onclick="openSidebar()">
+                <img src="Lions_Exchange_images/menu.png" alt="Menu Icon" class="menu-icon">
+            </div>
+
+            <div class="header-left">
+                <p id="logo">LionsExchange</p>
+            </div>
+
+            <div class="header-center">
+                <div class="search-wrapper">
+                    <img src="Lions_Exchange_images/search.png" alt="Search Icon" class="search-icon-inside">
+                    <input type="text" class="search-bar" placeholder="Search marketplace...">
+                </div>
+            </div>
+
+            <!-- <div class="header-right">
+                <img src="Lions_Exchange_images/profile.png" alt="Profile Icon" class="profile-icon">
+            </div> -->
+        </header>
+
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <img src="Lions_Exchange_images/close.png" alt="Close Icon" class="close-icon" onclick="closeSidebar()">
+            </div>
+            <ul class="sidebar-list">
+                <li class="sidebar-item">
+                    <a href="dashboard.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/dashboard.png"> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="my ads.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/ads.png"> My Ads
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="marketplace.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/white_search.png"> Marketplace
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="Help and FAQ.html">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/help.png"> Help & FAQ
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" onclick="logout()">
+                        <img class="sidebar-icon" src="Lions_Exchange_images/logout.png"> Logout
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main">
+            <div class="dashboard-container">
+                <div class="main-title">
+                    <h2>Dashboard</h2>
+                </div>
+
+                <!-- Welcome Section -->
+                <div class="welcome-section">
+                    <h1 class="welcome-title">Welcome back!</h1>
+                    <p class="welcome-subtitle" id="welcomeMessage">Ready to start trading on campus?</p>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <div class="action-card" onclick="window.location.href='my ads.html'">
+                        <div class="action-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <h3 class="action-title">Post New Ad</h3>
+                        <p class="action-description">Sell your items or advertise your services to fellow students</p>
+                    </div>
+
+                    <div class="action-card" onclick="window.location.href='marketplace.html'">
+                        <div class="action-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="action-title">Browse Marketplace</h3>
+                        <p class="action-description">Discover great deals and services from other students</p>
+                    </div>
+
+                    <div class="action-card" onclick="window.location.href='my ads.html'">
+                        <div class="action-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <h3 class="action-title">Manage Ads</h3>
+                        <p class="action-description">View, edit, or delete your existing listings</p>
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="stats-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Your Stats
+                    </h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalAds">-</div>
+                            <div class="stat-label">Active Ads</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalViews">-</div>
+                            <div class="stat-label">Total Views</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalEarnings">$0</div>
+                            <div class="stat-label">Potential Earnings</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="memberSince">-</div>
+                            <div class="stat-label">Member Since</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h3 class="section-title">
+                        <i class="fas fa-clock"></i>
+                        Recent Activity
+                    </h3>
+                    <div id="recentActivityList">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i> Loading recent activity...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+        import { getFirestore, collection, query, where, getDocs, doc, getDoc, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCMQQdUBSMHcrqRUBXJNyDkoKDNOO-wxKY",
+            authDomain: "lionsexchange-88d6e.firebaseapp.com",
+            projectId: "lionsexchange-88d6e",
+            storageBucket: "lionsexchange-88d6e.firebasestorage.app",
+            messagingSenderId: "1098511064527",
+            appId: "1:1098511064527:web:d205383aaf7fcfc8be06ba"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+
+        // Check authentication and load dashboard data
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                await loadDashboardData();
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Logout function
+        window.logout = async function() {
+            if (confirm("Are you sure you want to logout?")) {
+                try {
+                    await signOut(auth);
+                    sessionStorage.clear();
+                    localStorage.clear();
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    console.error('Error signing out:', error);
+                    alert('Error logging out. Please try again.');
+                }
+            }
+        };
+
+        // Load dashboard data
+        async function loadDashboardData() {
+            try {
+                // Load user profile
+                await loadUserProfile();
+                
+                // Load user stats
+                await loadUserStats();
+                
+                // Load recent activity
+                await loadRecentActivity();
+
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+            }
+        }
+
+        async function loadUserProfile() {
+            try {
+                const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    const firstName = userData.firstName || 'Student';
+                    document.getElementById('welcomeMessage').textContent = 
+                        `Welcome back, ${firstName}! Ready to start trading on campus?`;
+                }
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+            }
+        }
+
+        async function loadUserStats() {
+            try {
+                // Load user's ads
+                const adsQuery = query(collection(db, 'ads'), where('userId', '==', currentUser.uid));
+                const adsSnapshot = await getDocs(adsQuery);
+                
+                let totalAds = 0;
+                let totalEarnings = 0;
+                
+                adsSnapshot.forEach((doc) => {
+                    const ad = doc.data();
+                    if (ad.status === 'active') {
+                        totalAds++;
+                        totalEarnings += ad.price || 0;
+                    }
+                });
+
+                // Update stats display
+                document.getElementById('totalAds').textContent = totalAds;
+                document.getElementById('totalViews').textContent = Math.floor(Math.random() * 100); // Placeholder
+                document.getElementById('totalEarnings').textContent = `$${totalEarnings.toFixed(2)}`;
+                
+                // Calculate member since
+                const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    const memberSince = userData.createdAt?.toDate() || new Date();
+                    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    document.getElementById('memberSince').textContent = 
+                        `${monthNames[memberSince.getMonth()]} ${memberSince.getFullYear()}`;
+                }
+
+            } catch (error) {
+                console.error('Error loading user stats:', error);
+                document.getElementById('totalAds').textContent = '0';
+                document.getElementById('totalViews').textContent = '0';
+                document.getElementById('totalEarnings').textContent = '$0';
+                document.getElementById('memberSince').textContent = 'Recently';
+            }
+        }
+
+        async function loadRecentActivity() {
+            const activityList = document.getElementById('recentActivityList');
+            
+            try {
+                // Load recent ads
+                const recentAdsQuery = query(
+                    collection(db, 'ads'), 
+                    where('userId', '==', currentUser.uid),
+                    orderBy('createdAt', 'desc'),
+                    limit(5)
+                );
+                const recentAdsSnapshot = await getDocs(recentAdsQuery);
+                
+                activityList.innerHTML = '';
+                
+                if (recentAdsSnapshot.empty) {
+                    activityList.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div>No recent activity yet.</div>
+                            <div style="font-size: 0.9rem; margin-top: 10px;">Post your first ad to get started!</div>
+                            <a href="my ads.html" class="get-started-btn">Create Your First Ad</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                recentAdsSnapshot.forEach((doc) => {
+                    const ad = doc.data();
+                    const activityItem = createActivityItem(ad);
+                    activityList.appendChild(activityItem);
+                });
+
+            } catch (error) {
+                console.error('Error loading recent activity:', error);
+                activityList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div>Error loading recent activity.</div>
+                        <div style="font-size: 0.9rem; margin-top: 10px;">Please refresh the page.</div>
+                    </div>
+                `;
+            }
+        }
+
+        function createActivityItem(ad) {
+            const activityItem = document.createElement('div');
+            activityItem.className = 'activity-item';
+            
+            const timeAgo = getTimeAgo(ad.createdAt?.toDate() || new Date());
+            
+            activityItem.innerHTML = `
+                <div class="activity-icon">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">Posted "${ad.title}"</div>
+                    <div class="activity-time">${timeAgo}</div>
+                </div>
+            `;
+            
+            return activityItem;
+        }
+
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+            const diffMinutes = Math.floor(diffTime / (1000 * 60));
+            
+            if (diffDays > 0) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+            if (diffHours > 0) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+            if (diffMinutes > 0) return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`;
+            return 'Just now';
+        }
+    </script>
+
+    <!-- Enhanced Search Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerSearchBar = document.querySelector('.search-bar');
+            
+            if (headerSearchBar) {
+                headerSearchBar.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const searchTerm = this.value.trim();
+                        if (!searchTerm) {
+                            window.location.href = 'marketplace.html';
+                        } else {
+                            const encodedSearch = encodeURIComponent(searchTerm);
+                            window.location.href = `marketplace.html?search=${encodedSearch}`;
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

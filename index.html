@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LionsExchange</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script type = "module" src ="firebaseauth.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            color: #fff;
+            background: linear-gradient(135deg, #2b2b82 0%, #25286f 100%);
+            min-height: 100vh;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            animation: bgFadeIn 1.2s ease;
+        }
+
+        @keyframes bgFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .landing-page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            animation: fadeInUp 1s 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        header.landing-page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 32px 10px 32px; /* Reduced header height */
+            background: rgba(28, 28, 160, 0.92);
+            box-shadow: 0 4px 24px 0 rgba(44, 44, 120, 0.13);
+            border-bottom-left-radius: 32px;
+            border-bottom-right-radius: 32px;
+            animation: fadeInDown 1s 0.3s both;
+            height: 70px; /* Fixed height for header */
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .landing-page-header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        #logo {
+            font-size: 2.1rem; /* Slightly reduced for header height */
+            font-weight: bold;
+            color: rgba(245, 86, 0, 0.9);
+            font-family: 'Pacifico', cursive;
+            letter-spacing: 2px;
+            text-shadow: 2px 4px 16px rgba(245, 86, 0, 0.18);
+            margin-left: 10px;
+            animation: logoPop 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+
+        @keyframes logoPop {
+            0% { transform: scale(0.7) rotate(-10deg); opacity: 0; }
+            70% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0); }
+        }
+
+        .header-right nav {
+            display: flex;
+            gap: 18px;
+        }
+
+        .header-right a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 700;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(90deg, #f55600 60%, #ffb347 100%);
+            padding: 10px 24px; /* Reduced vertical padding */
+            border-radius: 999px;
+            box-shadow: 0 2px 12px 0 rgba(245, 86, 0, 0.13);
+            font-size: 1.08rem;
+            letter-spacing: 1px;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-right a::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.08);
+            opacity: 0;
+            transition: opacity 0.2s;
+            border-radius: 999px;
+            pointer-events: none;
+        }
+
+        .header-right a:hover, .header-right a:focus {
+            background: linear-gradient(90deg, #ffb347 0%, #f55600 100%);
+            color: #1c1cba;
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 6px 24px 0 rgba(245, 86, 0, 0.18);
+        }
+        .header-right a:hover::after {
+            opacity: 1;
+        }
+
+        .landing-page-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 60px 0 40px 0;
+            background: none;
+            position: relative;
+        }
+        .main-content {
+            max-width: 540px;
+            margin-left: 100px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 32px;
+            padding: 48px 40px 40px 40px;
+            box-shadow: 0 8px 32px 0 rgba(44, 44, 120, 0.13);
+            animation: fadeInUp 1.2s 0.5s both;
+            backdrop-filter: blur(2px);
+            transition: transform 0.3s cubic-bezier(.4,1.3,.5,1), box-shadow 0.3s;
+        }
+        .main-content:hover {
+            transform: translateY(-16px) scale(1.025);
+            box-shadow: 0 16px 48px 0 rgba(245, 86, 0, 0.18);
+        }
+
+        .main-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 18px;
+            font-family: 'Pacifico', cursive;
+            color: #ffb347;
+            text-shadow: 1px 2px 12px rgba(245, 86, 0, 0.13);
+            letter-spacing: 1.5px;
+            animation: textGlow 2s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 2px 12px #f5560033; }
+            to { text-shadow: 0 4px 24px #ffb34799; }
+        }
+
+        .main-content p {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: #fff;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            margin-bottom: 0;
+            letter-spacing: 0.2px;
+            animation: fadeInUp 1.2s 0.7s both;
+        }
+
+        /* Decorative animated shapes */
+        .decorative-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.18;
+            z-index: 0;
+            pointer-events: none;
+            animation: floatShape 8s infinite alternate ease-in-out;
+        }
+        .shape1 {
+            width: 180px; height: 180px;
+            background: linear-gradient(135deg, #f55600 60%, #ffb347 100%);
+            top: 80px; left: 60vw;
+            animation-delay: 0s;
+        }
+        .shape2 {
+            width: 120px; height: 120px;
+            background: linear-gradient(135deg, #ffb347 60%, #f55600 100%);
+            bottom: 120px; right: 8vw;
+            animation-delay: 2s;
+        }
+        .shape3 {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, #f55600 60%, #ffb347 100%);
+            top: 60vh; left: 8vw;
+            animation-delay: 4s;
+        }
+        @keyframes floatShape {
+            from { transform: translateY(0) scale(1);}
+            to { transform: translateY(-30px) scale(1.08);}
+        }
+
+        footer.landing-page-footer {
+            text-align: center;
+            padding: 24px 0 18px 0;
+            background: rgba(20, 20, 155, 0.98);
+            font-size: 1rem;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            color: #ffb347;
+            letter-spacing: 0.5px;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            box-shadow: 0 -2px 12px 0 rgba(44, 44, 120, 0.13);
+            animation: fadeInUp 1s 1.2s both;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .main-content {
+                margin-left: 24px;
+                padding: 32px 18px;
+            }
+            header.landing-page-header {
+                padding: 10px 10px 8px 10px; /* Reduced header height for tablet */
+            }
+        }
+        @media (max-width: 600px) {
+            .main-content {
+                margin-left: 0;
+                padding: 18px 8px;
+            }
+            .landing-page-main {
+                padding: 24px 0 12px 0;
+            }
+            header.landing-page-header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 8px 2px 4px 2px; /* Reduced header height for mobile */
+            }
+            #logo {
+                font-size: 1.2rem;
+            }
+            .header-right nav {
+                gap: 8px;
+            }
+        }
+    </style>
+
+
+
+<!------------------------ ----------------------------------END Of STYLE                  ---------------------------------------------------------->
+
+
+    <!-- Decorative animated shapes -->
+    <div class="decorative-shape shape1"></div>
+    <div class="decorative-shape shape2"></div>
+    <div class="decorative-shape shape3"></div>
+
+
+    </head>
+    <body>
+        <div class = "landing-page-container">
+
+            <header class="landing-page-header">
+                <div class="landing-page-header-left">
+                    <p id="logo">LionsExchange</p>
+                </div>
+
+                <div class="header-right">
+                    <nav>
+                        <a href="#signup">Signup</a>
+                        <a href="#login">Login</a>
+                    </nav>
+                </div>
+        </header>
+
+        
+        <main class = "landing-page-main"> 
+            <div class = "main-content">
+                <h2>Welcome to LionsExchange</h2>  
+                <p>Your campus marketplace to advertise services, buy, and sell.</p>        
+            </div>
+            <style>
+                /* Form Containers */
+                .container {
+                    background: rgba(44, 44, 120, 0.13);
+                    border-radius: 28px;
+                    box-shadow: 0 4px 24px 0 rgba(245, 86, 0, 0.10);
+                    padding: 36px 28px 28px 28px;
+                    margin: 32px auto 0 auto;
+                    max-width: 370px;
+                    width: 100%;
+                    position: relative;
+                    z-index: 2;
+                    animation: fadeInUp 1s 0.7s both;
+                    transition: box-shadow 0.2s, transform 0.2s;
+                }
+                .container:hover {
+                    box-shadow: 0 8px 32px 0 rgba(245, 86, 0, 0.18);
+                    transform: translateY(-6px) scale(1.015);
+                }
+                .signup-title {
+                    font-family: 'Pacifico', cursive;
+                    color: #ffb347;
+                    font-size: 2rem;
+                    margin-bottom: 18px;
+                    text-align: center;
+                    letter-spacing: 1px;
+                    text-shadow: 1px 2px 12px rgba(245, 86, 0, 0.13);
+                }
+                form {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 18px;
+                }
+                .input-group {
+                    display: flex;
+                    align-items: center;
+                    background: rgba(255,255,255,0.10);
+                    border-radius: 999px;
+                    padding: 8px 18px;
+                    margin-bottom: 6px;
+                    box-shadow: 0 2px 8px 0 rgba(44, 44, 120, 0.08);
+                    transition: box-shadow 0.2s;
+                }
+                .input-group:focus-within {
+                    box-shadow: 0 4px 16px 0 rgba(245, 86, 0, 0.13);
+                }
+                .input-group i {
+                    color: #ffb347;
+                    font-size: 1.1rem;
+                    margin-right: 10px;
+                    min-width: 22px;
+                }
+                .input-group input {
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    color: #fff;
+                    font-size: 1.08rem;
+                    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+                    flex: 1;
+                    padding: 8px 0;
+                    letter-spacing: 0.2px;
+                }
+                .input-group input::placeholder {
+                    color: #ffb347cc;
+                    opacity: 1;
+                    font-weight: 500;
+                }
+                .input-group label {
+                    display: none;
+                }
+                .signup-button, .login-button {
+                    background: linear-gradient(90deg, #f55600 60%, #ffb347 100%);
+                    color: #fff;
+                    border: none;
+                    border-radius: 999px;
+                    padding: 12px 0;
+                    font-size: 1.08rem;
+                    font-weight: 700;
+                    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+                    letter-spacing: 1px;
+                    margin-top: 8px;
+                    box-shadow: 0 2px 12px 0 rgba(245, 86, 0, 0.13);
+                    cursor: pointer;
+                    transition: background 0.3s, color 0.2s, transform 0.2s;
+                }
+                .signup-button:hover, .login-button:hover {
+                    background: linear-gradient(90deg, #ffb347 0%, #f55600 100%);
+                    color: #1c1cba;
+                    transform: translateY(-2px) scale(1.04);
+                    box-shadow: 0 6px 24px 0 rgba(245, 86, 0, 0.18);
+                }
+                .link {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    margin-top: 10px;
+                    font-size: 0.98rem;
+                    color: #fff;
+                }
+                .link p {
+                    margin: 0;
+                    color: #fff;
+                    font-weight: 400;
+                }
+                .link a {
+                    text-decoration: none;
+                }
+                #login-button, #signup-button {
+                    background: none;
+                    border: none;
+                    color: #ffb347;
+                    font-weight: 700;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    padding: 0 4px;
+                    border-radius: 8px;
+                    transition: color 0.2s, background 0.2s;
+                }
+                #login-button:hover, #signup-button:hover {
+                    color: #f55600;
+                    background: rgba(255,180,71,0.08);
+                }
+                .recover {
+                    text-align: right;
+                    margin: 0 0 8px 0;
+                    font-size: 0.97rem;
+                }
+                .recover a {
+                    color: #ffb347;
+                    text-decoration: underline;
+                    transition: color 0.2s;
+                }
+                .recover a:hover {
+                    color: #f55600;
+                }
+                /* Responsive for forms */
+                @media (max-width: 600px) {
+                    .container {
+                        padding: 18px 6px 16px 6px;
+                        max-width: 98vw;
+                    }
+                    .signup-title {
+                        font-size: 1.3rem;
+                    }
+                }
+            </style>
+
+            <div class="container" id="signup" style="display:none;">
+                <h2 class="signup-title">Sign Up</h2>
+                <form method="post" action="">
+                    <div id ="signUpMessage" class = "messageDiv" style="display:none;"></div>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="fName" id="fName" placeholder="Firstname" required>
+                        <label for="fName"></label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="lName" id="lName" placeholder="Lastname" required>
+                        <label for="lName"></label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="email" id="email" placeholder="Email" required>
+                        <label for="email"></label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" id="password" placeholder="Password" required>
+                        <label for="password"></label>
+                    </div>
+                    <button type="submit" class="signup-button" id="signup-submit">Sign Up</button>
+
+                    <div class="link">
+                        <p>Already have an account? </p>
+                        <a href="#login"><button id="login-switch" type="button">Login</button></a>
+                    </div>
+                    </form>
+                    </div>
+
+                    <div class="container" id="login" style="display:none;">
+                        <h2 class="signup-title">Login</h2>
+                        <form method="post" action="">
+                            <div id="loginMessage" class="messageDiv" style="display:none;"></div>
+                            <style>
+                                .messageDiv {
+                                    background: linear-gradient(90deg, #f55600 60%, #ffb347 100%);
+                                    color: #fff;
+                                    border-radius: 16px;
+                                    padding: 12px 18px;
+                                    margin-bottom: 16px;
+                                    font-size: 1.05rem;
+                                    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+                                    box-shadow: 0 2px 12px 0 rgba(245, 86, 0, 0.13);
+                                    text-align: center;
+                                    letter-spacing: 0.2px;
+                                    animation: fadeInUp 0.5s;
+                                    transition: background 0.2s, color 0.2s;
+                                }
+                            </style>
+                            <div class="input-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" name="email" id="email-login" placeholder="Email" required>
+                                <label for="email-login"></label>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="password" id="password-login" placeholder="Password" required>
+                                <label for="password-login"></label>
+                            </div>
+                            <p class="recover">
+                                <a href="#">Recover Password</a>
+                            </p>
+                            <button type="submit" id="login-submit" class="login-button">Login</button>
+                            <div class="link">
+                                <p>Don't have an account, yet? </p>
+                                <a href="#signup"><button id="signup-switch" type="button">Sign Up</button></a>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </form>
+            </div>
+
+
+
+
+
+
+
+
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const signupForm = document.getElementById('signup');
+                const loginForm = document.getElementById('login');
+
+                // Show form based on hash in URL
+                function showFormFromHash() {
+                    if (window.location.hash === '#signup') {
+                        signupForm.style.display = 'block';
+                        loginForm.style.display = 'none';
+                    } else if (window.location.hash === '#login') {
+                        signupForm.style.display = 'none';
+                        loginForm.style.display = 'block';
+                    } else {
+                        signupForm.style.display = 'none';
+                        loginForm.style.display = 'none';
+                    }
+                }
+
+                // Listen for hash changes
+                window.addEventListener('hashchange', showFormFromHash);
+
+                // Listen for button clicks
+                document.getElementById('login-button').onclick = function(e) {
+                    e.preventDefault();
+                    window.location.hash = '#login';
+                };
+                document.getElementById('signup-button').onclick = function(e) {
+                    e.preventDefault();
+                    window.location.hash = '#signup';
+                };
+
+                // Initial check
+                showFormFromHash();
+            });
+            </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+        <footer class="landing-page-footer">
+                <p> &copy; 2025 LionsExchange. Built for students, by student. Dedicated to God.</p>
+        </footer>
+</body>
+</html>
