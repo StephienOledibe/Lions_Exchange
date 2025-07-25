@@ -150,9 +150,19 @@ body{
     color: rgba(245, 86, 0, 0.9);
     font-style: bold;
 }
-.sidebar-responsive{
-    display: inline !important;
+.sidebar-responsive {
     position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 200;
+    transform: translateX(-220px); /* hidden by default */
+    transition: transform 0.3s ease;
+}
+
+/* When open, slide it in */
+.sidebar-responsive.active {
+    transform: translateX(0);
 }
 .sidebar-item:hover .sidebar-icon {
     filter: brightness(0) saturate(100%) invert(58%) sepia(83%) saturate(711%) hue-rotate(-4deg) brightness(100%) contrast(97%);
@@ -171,5 +181,22 @@ body{
     display: flex;
     justify-content: space-between;
     color:rgba(8, 11, 57, 0.848);
+}
+.menu-icon {
+  display: none;
+}
+
+.close-icon {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+.sidebar-title {
+  position: relative;
 }
 

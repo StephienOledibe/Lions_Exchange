@@ -10,6 +10,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="responsive.css">
     
     <style>
     .header {
@@ -26,7 +27,7 @@
     <div class="container">
 
         <header class="header"> <!-- Header Section -->
-            <div class = "menu" onclick = "openSidebar()">
+            <div class = "menu" onclick="toggleSidebar()">
                 <img src="Lions_Exchange_images/menu.png" alt="Menu Icon" class="menu-icon">
             </div>
 
@@ -50,7 +51,7 @@
 
         <aside id ="sidebar"> <!---- Side bar ------>
             <div class = "sidebar-title">
-                <img src="Lions_Exchange_images/close.png" alt="Close Icon" class="close-icon" onclick="closeSidebar()">
+                <img src="Lions_Exchange_images/close.png" alt="Close Icon" class="close-icon" onclick="toggleSidebar()">
             </div>
             <ul class="sidebar-list">
                 <li class="sidebar-item">

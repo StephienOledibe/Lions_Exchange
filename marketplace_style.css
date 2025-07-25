@@ -467,3 +467,163 @@ padding: 15px;
 .category-clothing { background: rgba(155, 89, 182, 0.1); color: #9b59b6; }
 .category-services { background: rgba(241, 196, 15, 0.1); color: #f1c40f; }
 .category-other { background: rgba(149, 165, 166, 0.1); color: #95a5a6; }
+
+@media (max-width: 768px) {
+  .marketplace-container {
+    padding: 15px;
+  }
+
+  /* Search row side by side on mobile */
+.search-row {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.search-input-wrapper {
+    flex: 1;
+    width: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 0.95rem;
+    border-radius: 8px;
+}
+
+.search-btn {
+    position: static;
+    transform: none;
+    right: auto;
+    top: auto;
+    padding: 12px 18px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    flex-shrink: 0;
+    height: auto;
+    margin-top: 0;
+    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+}
+
+  .filter-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .filter-select, .filter-input {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .clear-filters-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .results-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .sort-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .marketplace-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .product-card {
+    border-radius: 12px;
+  }
+
+  .product-image-container {
+    height: 180px;
+  }
+
+  .product-content {
+    padding: 15px;
+  }
+
+  .product-title {
+    font-size: 1rem;
+  }
+
+  .product-price {
+    font-size: 1.2rem;
+  }
+
+  .contact-btn {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .favorite-btn {
+    padding: 8px 10px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pagination-btn {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+
+  .loading,
+  .empty-state {
+    font-size: 1rem;
+    padding: 40px 15px;
+  }
+
+  .empty-icon {
+    font-size: 3rem;
+  }
+
+  .empty-title {
+    font-size: 1.1rem;
+  }
+
+  .empty-description {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even smaller screens - tighten spacing and font sizes */
+  .search-btn {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+  .product-image-container {
+    height: 160px;
+  }
+
+  .product-title {
+    font-size: 0.95rem;
+  }
+
+  .product-price {
+    font-size: 1.1rem;
+  }
+  
+}
+
