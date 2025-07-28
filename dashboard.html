@@ -122,10 +122,10 @@
                             <div class="stat-number" id="totalAds">-</div>
                             <div class="stat-label">Active Ads</div>
                         </div>
-                        <div class="stat-card">
+                        <!-- <div class="stat-card">
                             <div class="stat-number" id="totalViews">-</div>
                             <div class="stat-label">Total Views</div>
-                        </div>
+                        </div> -->
                         <div class="stat-card">
                             <div class="stat-number" id="totalEarnings">$0</div>
                             <div class="stat-label">Potential Earnings</div>
@@ -232,6 +232,7 @@
 
         async function loadUserStats() {
             try {
+                
                 // Load user's ads
                 const adsQuery = query(collection(db, 'ads'), where('userId', '==', currentUser.uid));
                 const adsSnapshot = await getDocs(adsQuery);
@@ -249,7 +250,7 @@
 
                 // Update stats display
                 document.getElementById('totalAds').textContent = totalAds;
-                document.getElementById('totalViews').textContent = Math.floor(Math.random() * 100); // Placeholder
+                // document.getElementById('totalViews').textContent = Math.floor(Math.random() * 100); // Placeholder
                 document.getElementById('totalEarnings').textContent = `$${totalEarnings.toFixed(2)}`;
                 
                 // Calculate member since
@@ -266,7 +267,7 @@
             } catch (error) {
                 console.error('Error loading user stats:', error);
                 document.getElementById('totalAds').textContent = '0';
-                document.getElementById('totalViews').textContent = '0';
+                // document.getElementById('totalViews').textContent = '0';
                 document.getElementById('totalEarnings').textContent = '$0';
                 document.getElementById('memberSince').textContent = 'Recently';
             }

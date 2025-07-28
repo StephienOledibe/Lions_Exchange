@@ -1,2 +1,32 @@
-# Lions_Exchange
-This is an e-commerce website built for college students on campus to advertise their business and services
+# LionsExchange
+
+## Project Overview
+
+Campus Marketplace is an e-commerce website designed for students on campus to advertise and browse products and services. This project was inspired by a common problem observed on campus, where students promoting their businesses rely on physical flyers and posters pinned on walls. This traditional method causes clutter and limits the reach of their ads.
+
+To solve this, I developed a digital platform that allows students to easily advertise their products and services, as well as explore what others are offering — all in one centralized, user-friendly space.
+
+## Features
+
+- **User Dashboard:** View active ads, total views, potential earnings, and membership duration.
+- **Marketplace:** Browse available products and services from other students.
+- **Advertisements Page:** Create, edit, and manage your ads.
+- **Help Page:** Access support and guidelines for using the platform.
+
+## Technologies Used
+
+- Frontend: HTML, CSS, JavaScript
+- Backend & Database: Firebase Authentication and Firestore
+
+## How It Works
+
+- Users register and authenticate via Firebase Authentication.
+- Ads are created and stored in Firestore, linked to user accounts.
+- The dashboard displays personalized user statistics and recent activity.
+- Marketplace displays all active listings for browsing.
+
+## Motivation
+
+The motivation behind this project was to replace the ineffective and cluttered flyer/poster system with a clean, efficient, and accessible online solution that empowers students to promote their services and products more effectively.
+
+
