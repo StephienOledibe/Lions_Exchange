@@ -2,7 +2,11 @@
 
 ## Project Overview
 
-Campus Marketplace is an e-commerce website designed for students on campus to advertise and browse products and services. This project was inspired by a common problem observed on campus, where students promoting their businesses rely on physical flyers and posters pinned on walls. This traditional method causes clutter and limits the reach of their ads.
+Campus Marketplace is an e-commerce website designed for students on campus to advertise and browse products and services. 
+
+## Motivation
+
+This project was inspired by a common problem observed on campus, where students promoting their businesses rely on physical flyers and posters pinned on walls. This traditional method causes clutter and limits the reach of their ads.
 
 To solve this, I developed a digital platform that allows students to easily advertise their products and services, as well as explore what others are offering — all in one centralized, user-friendly space.
 
@@ -25,8 +29,7 @@ To solve this, I developed a digital platform that allows students to easily adv
 - The dashboard displays personalized user statistics and recent activity.
 - Marketplace displays all active listings for browsing.
 
-## Motivation
 
-The motivation behind this project was to replace the ineffective and cluttered flyer/poster system with a clean, efficient, and accessible online solution that empowers students to promote their services and products more effectively.
+
 
 
