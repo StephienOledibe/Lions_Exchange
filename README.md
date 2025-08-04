@@ -8,7 +8,7 @@ Campus Marketplace is an e-commerce website designed for students on campus to a
 
 This project was inspired by a common problem observed on campus, where students promoting their businesses rely on physical flyers and posters pinned on walls. This traditional method causes clutter and limits the reach of their ads.
 
-To solve this, I developed a digital platform that allows students to easily advertise their products and services, as well as explore what others are offering — all in one centralized, user-friendly space.
+To solve this, I developed a sustainability-focused digital marketplace promoting students businesses while reducing paper based advertising. This will allow students to easily advertise their products and services, as well as explore what others are offering — all in one centralized, user-friendly space.
 
 ## Features
 
