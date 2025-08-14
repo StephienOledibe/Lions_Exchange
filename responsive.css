@@ -1770,5 +1770,35 @@
   }
 }
 
+@media (max-width: 480px) {
+  body,
+  html,
+  .container,
+  .main,
+  .dashboard-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: white !important;
+  }
+
+  #sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #1d269a;
+    z-index: 999;
+    transition: left 0.3s ease-in-out;
+  }
+
+  #sidebar.active {
+    left: 0;
+  }
+}
+
+
 
 
