@@ -20,12 +20,13 @@
         background: linear-gradient(135deg, #f55600, #1a237e);
         color: #fff;
         border: none;
-        padding: 12px 20px;
-        font-size: 1rem;
-        border-radius: 8px;
+        padding: 10px 16px; /* smaller padding */
+        font-size: 0.95rem;  /* slightly smaller font */
+        border-radius: 6px;  /* slightly less round */
         cursor: pointer;
         font-weight: 600;
         transition: background 0.3s ease;
+        margin-top: 10px;
         }
 
         .submit-btn:hover {
@@ -40,6 +41,29 @@
         margin: 32px auto;
         max-width: 700px;
         }
+
+        .form-note {
+        margin-bottom: 20px;
+        font-size: 1rem;
+        color: #333;
+        background-color: #fff;
+        padding: 16px 20px;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        textarea#feedbackInput {
+        width: 93%;
+        height: 160px; /* Increase height */
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        resize: vertical;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        margin-bottom: 16px;
+        }
+
     </style>
 </head>
 <body>
@@ -82,6 +106,10 @@
                 </div>
             <div class="form-wrapper">
                 <div class="form-section">
+                    <div class="form-note">
+                        <p><strong>Tell us what you think!</strong></p>
+                        <p>What did you enjoy? What didn’t you enjoy? What can we improve on? And what features would you like to see in the future?</p>
+                    </div>
                     <form id="feedbackForm">
                         <label for="feedbackInput">Your Feedback:</label>
                         <textarea id="feedbackInput" placeholder="Tell us what you think..." required></textarea>
