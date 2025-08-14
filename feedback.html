@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LionsExchange - Feedback</title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard_style.css">
+    <link rel="stylesheet" href="responsive.css">
+
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .submit-btn {
+        background: linear-gradient(135deg, #f55600, #1a237e);
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+        opacity: 0.9;
+        }
+
+        .form-wrapper {
+        background-color: #f1f1f1; /* Light grey */
+        padding: 32px 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        margin: 32px auto;
+        max-width: 700px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="menu" onclick="toggleSidebar()">
+                <img src="Lions_Exchange_images/menu.png" alt="Menu Icon" class="menu-icon">
+            </div>
+
+            <div class="header-left">
+                <p id="logo">LionsExchange</p>
+            </div>
+
+            <div class="header-center">
+                <div class="search-wrapper">
+                    <img src="Lions_Exchange_images/search.png" alt="Search Icon" class="search-icon-inside">
+                    <input type="text" class="search-bar" placeholder="Search marketplace...">
+                </div>
+            </div>
+        </header>
+
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <img src="Lions_Exchange_images/close.png" alt="Close Icon" class="close-icon" onclick="toggleSidebar()">
+            </div>
+            <ul class="sidebar-list">
+                <li class="sidebar-item"><a href="dashboard.html"><img class="sidebar-icon" src="Lions_Exchange_images/dashboard.png"> Dashboard</a></li>
+                <li class="sidebar-item"><a href="my ads.html"><img class="sidebar-icon" src="Lions_Exchange_images/ads.png"> My Ads</a></li>
+                <li class="sidebar-item"><a href="marketplace.html"><img class="sidebar-icon" src="Lions_Exchange_images/white_search.png"> Marketplace</a></li>
+                <li class="sidebar-item"><a href="Help and FAQ.html"><img class="sidebar-icon" src="Lions_Exchange_images/help.png"> Help & FAQ</a></li>
+                <li class="sidebar-item"><a href="feedback.html"><img class="sidebar-icon" src="Lions_Exchange_images/feedback.png"> Feedback</a></li>
+                <li class="sidebar-item"><a href="#" onclick="logout()"><img class="sidebar-icon" src="Lions_Exchange_images/logout.png"> Logout</a></li>
+            </ul>                  
+        </aside>
+
+        <main class="main">
+            <div class="dashboard-container">
+                <div class="main-title">
+                    <h2>Feedback</h2>
+                </div>
+            <div class="form-wrapper">
+                <div class="form-section">
+                    <form id="feedbackForm">
+                        <label for="feedbackInput">Your Feedback:</label>
+                        <textarea id="feedbackInput" placeholder="Tell us what you think..." required></textarea>
+                        <button type="submit" class="submit-btn">Submit Feedback</button>
+                        <p id="statusMessage"></p>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCMQQdUBSMHcrqRUBXJNyDkoKDNOO-wxKY",
+            authDomain: "lionsexchange-88d6e.firebaseapp.com",
+            projectId: "lionsexchange-88d6e",
+            storageBucket: "lionsexchange-88d6e.firebasestorage.app",
+            messagingSenderId: "1098511064527",
+            appId: "1:1098511064527:web:d205383aaf7fcfc8be06ba"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const feedbackForm = document.getElementById('feedbackForm');
+        const feedbackInput = document.getElementById('feedbackInput');
+        const statusMessage = document.getElementById('statusMessage');
+
+        feedbackForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const feedback = feedbackInput.value.trim();
+
+            if (!feedback) {
+                statusMessage.textContent = 'Please enter your feedback.';
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, 'feedback'), {
+                    message: feedback,
+                    createdAt: serverTimestamp()
+                });
+                statusMessage.textContent = 'Thank you for your feedback!';
+                feedbackInput.value = '';
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                statusMessage.textContent = 'Something went wrong. Try again later.';
+            }
+        });
+    </script>
+</body>
+</html>
