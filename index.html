@@ -496,7 +496,7 @@
                                 <label for="password-login"></label>
                             </div>
                             <p class="recover">
-                                <a href="#">Recover Password</a>
+                                <a href="reset_password.html">Recover Password</a>
                             </p>
                             <button type="submit" id="login-submit" class="login-button">Login</button>
                             <div class="link">
@@ -542,12 +542,22 @@
                 // Listen for button clicks
                 document.getElementById('login-button').onclick = function(e) {
                     e.preventDefault();
-                    window.location.hash = '#login';
+                    if (window.location.hash !== '#login') {
+                        window.location.hash = '#login';
+                    } else {
+                        showFormFromHash();  // force show
+                    }
                 };
+
                 document.getElementById('signup-button').onclick = function(e) {
                     e.preventDefault();
-                    window.location.hash = '#signup';
+                    if (window.location.hash !== '#signup') {
+                        window.location.hash = '#signup';
+                    } else {
+                        showFormFromHash();  // force show
+                    }
                 };
+
 
                 // Initial check
                 showFormFromHash();
